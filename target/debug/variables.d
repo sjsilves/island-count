@@ -1,1 +1,1 @@
-/Users/sjsilves/Documents/git/island-count/target/debug/variables.dSYM: /Users/sjsilves/Documents/git/island-count/src/island_struct.rs /Users/sjsilves/Documents/git/island-count/src/main.rs /Users/sjsilves/Documents/git/island-count/src/point_struct.rs
+/Users/sjsilves/Documents/git/island-count-iterate-collect/target/debug/variables.dSYM: /Users/sjsilves/Documents/git/island-count-iterate-collect/src/island_struct.rs /Users/sjsilves/Documents/git/island-count-iterate-collect/src/main.rs /Users/sjsilves/Documents/git/island-count-iterate-collect/src/point_struct.rs
