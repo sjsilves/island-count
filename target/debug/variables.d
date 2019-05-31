@@ -1,0 +1,1 @@
+/Users/sjsilves/Documents/variables/target/debug/variables.dSYM: /Users/sjsilves/Documents/variables/src/island_struct.rs /Users/sjsilves/Documents/variables/src/main.rs /Users/sjsilves/Documents/variables/src/point_struct.rs

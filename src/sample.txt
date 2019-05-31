@@ -1,0 +1,5 @@
+remove_islands(
+    islands=[
+        Island { id: 0, lands: [Point { x: 0, y: 0 }, Point { x: 0, y: 1 }] }]
+        ,islands_to_remove=[
+            Island { id: 0, lands: [Point { x: 0, y: 0 }, Point { x: 0, y: 1 }, Point { x: 1, y: 1 }] }])
