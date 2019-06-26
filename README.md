@@ -1,2 +1,2 @@
-# island-count-iterate-collect
-Implemented using basic iteration, collecting the isnads in an array
+# island-count
+Implemented using basic iteration, collecting the islands in an array

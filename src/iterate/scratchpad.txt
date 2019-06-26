@@ -1,0 +1,67 @@
+Land ho!: (0,0)
+adjacent_land: []
+islands before find_existing_islands: {}
+found_existing_islands: []
+Next Island Id: 0
+There are now 1 islands on our map: {Island { id: 0, lands: {Point { x: 0, y: 0 }} }}
+Land ho!: (0,2)
+adjacent_land: [Point { x: 1, y: 2 }]
+islands before find_existing_islands: {Island { id: 0, lands: {Point { x: 0, y: 0 }} }}
+found_existing_islands: []
+Next Island Id: 1
+There are now 2 islands on our map: {Island { id: 0, lands: {Point { x: 0, y: 0 }} }, Island { id: 1, lands: {Point { x: 0, y: 2 }} }}
+Land ho!: (1,2)
+adjacent_land: [Point { x: 0, y: 2 }, Point { x: 2, y: 2 }]
+islands before find_existing_islands: {Island { id: 0, lands: {Point { x: 0, y: 0 }} }, Island { id: 1, lands: {Point { x: 0, y: 2 }} }}
+found existing islands: Island { id: 1, lands: {Point { x: 0, y: 2 }} }
+found_existing_islands: [Island { id: 1, lands: {Point { x: 0, y: 2 }} }]
+Islands to remove: [Island { id: 1, lands: {Point { x: 0, y: 2 }} }]
+Islands before remove: {Island { id: 0, lands: {Point { x: 0, y: 0 }} }, Island { id: 1, lands: {Point { x: 0, y: 2 }} }}
+Island being removed: Island { id: 1, lands: {Point { x: 0, y: 2 }} }
+Remove Islands: {Island { id: 0, lands: {Point { x: 0, y: 0 }} }}
+Merged Island: Island { id: 1, lands: {Point { x: 0, y: 2 }} }
+There are now 2 islands on our map: {Island { id: 0, lands: {Point { x: 0, y: 0 }} }, Island { id: 1, lands: {Point { x: 0, y: 2 }} }}
+Land ho!: (2,0)
+adjacent_land: []
+islands before find_existing_islands: {Island { id: 0, lands: {Point { x: 0, y: 0 }} }, Island { id: 1, lands: {Point { x: 0, y: 2 }} }}
+found_existing_islands: []
+Next Island Id: 2
+There are now 3 islands on our map: {Island { id: 2, lands: {Point { x: 2, y: 0 }} }, Island { id: 0, lands: {Point { x: 0, y: 0 }} }, Island { id: 1, lands: {Point { x: 0, y: 2 }} }}
+Land ho!: (2,2)
+adjacent_land: [Point { x: 1, y: 2 }]
+islands before find_existing_islands: {Island { id: 2, lands: {Point { x: 2, y: 0 }} }, Island { id: 0, lands: {Point { x: 0, y: 0 }} }, Island { id: 1, lands: {Point { x: 0, y: 2 }} }}
+found_existing_islands: []
+Next Island Id: 3
+There are now 4 islands on our map: {Island { id: 2, lands: {Point { x: 2, y: 0 }} }, Island { id: 0, lands: {Point { x: 0, y: 0 }} }, Island { id: 1, lands: {Point { x: 0, y: 2 }} }, Island { id: 3, lands: {Point { x: 2, y: 2 }} }}
+
+Land ho!: (0,0)
+adjacent_land: []
+islands before find_existing_islands: {}
+found_existing_islands: []
+Next Island Id: 0
+There are now 1 islands on our map: {Island { id: 0, lands: {Point { x: 0, y: 0 }} }}
+Land ho!: (0,2)
+adjacent_land: [Point { x: 1, y: 2 }]
+islands before find_existing_islands: {Island { id: 0, lands: {Point { x: 0, y: 0 }} }}
+found_existing_islands: []
+Next Island Id: 1
+There are now 2 islands on our map: {Island { id: 0, lands: {Point { x: 0, y: 0 }} }, Island { id: 1, lands: {Point { x: 0, y: 2 }} }}
+Land ho!: (1,2)
+adjacent_land: [Point { x: 0, y: 2 }]
+islands before find_existing_islands: {Island { id: 0, lands: {Point { x: 0, y: 0 }} }, Island { id: 1, lands: {Point { x: 0, y: 2 }} }}
+found existing islands: Island { id: 1, lands: {Point { x: 0, y: 2 }} }
+found_existing_islands: [Island { id: 1, lands: {Point { x: 0, y: 2 }} }]
+Islands to remove: [Island { id: 1, lands: {Point { x: 0, y: 2 }} }]
+Islands before remove: {Island { id: 0, lands: {Point { x: 0, y: 0 }} }, Island { id: 1, lands: {Point { x: 0, y: 2 }} }}
+Island being removed: Island { id: 1, lands: {Point { x: 0, y: 2 }} }
+Remove Islands: {Island { id: 0, lands: {Point { x: 0, y: 0 }} }}
+Merged Island: Island { id: 1, lands: {Point { x: 0, y: 2 }} }
+There are now 2 islands on our map: {Island { id: 0, lands: {Point { x: 0, y: 0 }} }, Island { id: 1, lands: {Point { x: 0, y: 2 }} }}
+Land ho!: (2,0)
+adjacent_land: []
+islands before find_existing_islands: {Island { id: 0, lands: {Point { x: 0, y: 0 }} }, Island { id: 1, lands: {Point { x: 0, y: 2 }} }}
+found_existing_islands: []
+Next Island Id: 2
+There are now 3 islands on our map: {Island { id: 0, lands: {Point { x: 0, y: 0 }} }, Island { id: 1, lands: {Point { x: 0, y: 2 }} }, Island { id: 2, lands: {Point { x: 2, y: 0 }} }}
+count_islands run duration: 12ms
+test iterate_into_array::tests::it_has_2_islands ... ok

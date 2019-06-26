@@ -1,5 +1,12 @@
-remove_islands(
-    islands=[
-        Island { id: 0, lands: [Point { x: 0, y: 0 }, Point { x: 0, y: 1 }] }]
-        ,islands_to_remove=[
-            Island { id: 0, lands: [Point { x: 0, y: 0 }, Point { x: 0, y: 1 }, Point { x: 1, y: 1 }] }])
+Land ho!: (2,3)
+
+add_land_to_existing_island( 
+    {Island { id: 1, lands: {Point { x: 1, y: 4 }} }, Island { id: 0, lands: {Point { x: 0, y: 0 }, Point { x: 0, y: 1 }, Point { x: 1, y: 1 }, Point { x: 2, y: 2 }} }}
+, Island { id: 1, lands: {Point { x: 1, y: 4 }} }
+, Point { x: 2, y: 3 } )
+
+merge_islands( {Island { id: 1, lands: {Point { x: 1, y: 4 }, Point { x: 2, y: 3 }} }, Island { id: 0, lands: {Point { x: 0, y: 0 }, Point { x: 0, y: 1 }, Point { x: 1, y: 1 }, Point { x: 2, y: 2 }} }}
+, Island { id: 1, lands: {Point { x: 1, y: 4 }} }
+, Island { id: 0, lands: {Point { x: 0, y: 0 }, Point { x: 0, y: 1 }, Point { x: 1, y: 1 }, Point { x: 2, y: 2 }} } )
+
+There are now 2 islands on our map: {Island { id: 1, lands: {Point { x: 1, y: 4 }, Point { x: 2, y: 3 }} }, Island { id: 1, lands: {Point { x: 0, y: 0 }, Point { x: 0, y: 1 }, Point { x: 1, y: 1 }, Point { x: 1, y: 4 }, Point { x: 2, y: 2 }} }}

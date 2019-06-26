@@ -1,16 +1,61 @@
-//use std::time::{Instant};
 use crate::point_struct::Point;
 use crate::island_struct::Island;
-use rayon::prelude::*;
-mod island_struct;
 mod point_struct;
-extern crate rand;
-//use rand::Rng;
-
-#[cfg(test)]
-mod tests;
+mod island_struct;
+mod iterate;
+mod iterate_2;
+mod recurse;
+use std::time::{Instant};
 
 fn main() {
+  test_1();
+  test_2();
+  test_3();
+  test_4();
+  test_5();
+  test_6();
+}
+
+fn iterate_a(ocean: &[&[bool]], test_num: usize) {
+    let mut sum_dur: u128 = 0;
+    let mut count = 0;
+    for _i in 1..10 {
+      let now = Instant::now();
+      iterate::count_islands(&ocean[..]);
+      sum_dur += now.elapsed().as_micros();
+      count += 1;
+    }
+    //println!("Number of islands in the ocean: {}", count);
+    println!["Iterate_a_{} average duration: {}", test_num, sum_dur/count];
+}
+
+fn iterate_b(ocean: &[&[bool]], test_num: usize) {
+    let mut sum_dur: u128 = 0;
+    let mut count = 0;
+    for _i in 1..10 {
+      let now = Instant::now();
+      iterate_2::count_islands(&ocean[..]);
+      sum_dur += now.elapsed().as_micros();
+      count += 1;
+    }
+    //println!("Number of islands in the ocean: {}", count);
+    println!["Iterate_b_{} average duration: {}", test_num, sum_dur/count];
+}
+
+fn recurse(ocean: &[&[bool]], test_num: usize) {
+    let mut sum_dur: u128 = 0;
+    let mut count = 0;
+    for _i in 1..10 {
+      let now = Instant::now();
+      recurse::count_islands(&ocean[..]);
+      sum_dur += now.elapsed().as_micros();
+      count += 1;
+    }
+    //println!("Number of islands in the ocean: {}", count);
+    println!["recurse_{} average duration: {}", test_num, sum_dur/count];
+}
+
+fn test_1() {
     let t = true;
     let o = false;
     let ocean: &[&[bool]] = 
@@ -18,176 +63,182 @@ fn main() {
                   &[o,t,o,o,t,o,o,o,t],
                   &[o,o,t,t,o,o,o,o,t],
                   &[o,o,o,o,o,o,t,o,t],
-                  &[o,t,o,o,o,o,o,o,t],
+                  &[o,t,o,o,o,o,o,o,o],
                   &[o,t,t,o,t,o,o,o,t],
                   &[o,t,o,o,o,t,o,o,t],
                   &[o,o,o,o,o,t,o,o,t],
                   &[o,o,o,o,o,t,o,o,t]];
 
-    //const size: usize = 30;
-    //let mut rng = rand::thread_rng();
-    //let mut ocean: Vec<&[bool]> = Vec::new();
-
-    //let mut row = Vec::new();
-    //for j in 0usize..size {
-    //    row.push(rng.gen());
-    //}
-    //for i in 0usize..size {
-    //    ocean.push(&row[..]);
-    //}
-    
-    println!("Number of islands in the ocean: {}", count_islands(&ocean[..]));
+    iterate_a(&ocean, 1);
+    //iterate_b(&ocean, 1);
+    recurse(&ocean, 1);
 }
 
-fn count_islands(ocean: &[&[bool]]) -> usize {
+fn test_2() {
+    let t = true;
+    let o = false;
+    let ocean: &[&[bool]] = 
+                &[&[t,t,o,o,o,o,o,o,t,o,o,o,o,o,o,o,o,o,t,o],
+                  &[o,t,o,o,t,o,o,o,t,o,o,o,t,t,o,o,o,o,t,t],
+                  &[o,o,t,t,o,o,o,o,t,t,o,t,t,t,o,t,o,o,o,o],
+                  &[o,o,o,o,o,o,t,o,t,t,o,t,t,t,o,o,o,o,o,o],
+                  &[o,t,o,o,o,o,o,o,t,t,t,t,o,o,o,o,o,o,o,o],
+                  &[t,t,t,o,t,o,o,o,t,t,t,t,o,t,o,o,o,o,o,o],
+                  &[t,t,o,o,o,t,o,o,t,o,o,o,t,o,o,o,o,o,o,o],
+                  &[t,t,t,o,o,t,o,o,t,o,o,o,o,t,o,o,o,o,o,o],
+                  &[t,t,o,o,o,t,o,o,t,o,o,o,t,t,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,t,o,o,o,o,o,o,o,o,t,t,t,o,o],
+                  &[o,o,o,o,o,o,o,t,o,o,o,o,o,o,t,t,t,t,o,t],
+                  &[o,o,o,o,o,o,t,o,o,o,o,o,o,o,o,t,t,t,o,t],
+                  &[o,o,o,o,o,o,o,t,o,o,o,o,o,o,o,o,o,t,o,t],
+                  &[o,o,o,o,o,t,t,t,t,t,o,o,o,o,o,o,t,o,o,t],
+                  &[o,o,o,o,o,t,t,t,t,t,o,o,o,o,o,t,t,t,o,t],
+                  &[o,o,t,o,o,o,o,o,t,t,o,o,o,o,t,t,t,t,o,t],
+                  &[t,t,t,t,t,o,o,t,t,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,t,t,t,t,o,o,t,t,o,o,t,t,t,o,o,o,o,o,o],
+                  &[o,t,t,t,t,o,o,o,t,o,o,t,o,t,o,o,o,o,o,o],
+                  &[t,o,o,o,o,o,o,t,t,o,o,t,t,t,o,o,o,o,o,o]];
 
-    if !validate_ocean(ocean) {
-        panic!["Invalid ocean shape"];
-    }
-    let mut islands: Vec<Island> = Vec::new();
-    let mut x = 0;
-
-    for row in ocean {
-        let mut y = 0;
-        for column in *row {
-            if *column == true {
-                //println!["Land ho!: ({},{})", x, y];
-                let land = Point { x: x, y: y };
-                // look around for adjacent land
-                let adjacent_land = get_adjacent_land(&ocean, land);
-                //println!["adjacent_land: {:?}", adjacent_land];
-
-                // see if any of the adjacent land is part of an island we already mapped
-                let found_islands = find_islands(&islands[..], land, &adjacent_land[..]);
-                //println!["found_islands: {:?}", found_islands];
-                let mut new_island: Island;
-
-                if found_islands.len() > 0 {
-                    new_island = merge_islands(&found_islands[..]);
-                    islands = remove_islands(&islands, &found_islands[..]);
-                } else {
-                    new_island = Island { id: get_next_island_id(&islands), lands: [land].to_vec() };
-                }
-
-                islands.push(new_island);
-
-                //println!["There are now {} islands on our map: {:?}", islands.len(), islands];
-                
-            } 
-            y += 1;
-        }
-        x += 1;
-    }
-
-    return islands.len();
+    iterate_a(&ocean, 2);
+    //iterate_b(&ocean, 2);
+    recurse(&ocean, 2);
 }
 
-fn get_adjacent_land (ocean: &[&[bool]], land: Point) -> Vec<Point> {
-    let mut adjacent_land: Vec<Point> = Vec::new();
+fn test_3() {
+    let t = true;
+    let o = false;
 
-    for x in land.x-1..land.x+2 {
-        for y in land.y-1..land.y+2 {
-            let test_point: Point = Point{x: x, y: y};
-            let current_point: Point = Point{x: land.x, y: land.y};
-            if  test_point != current_point 
-                    && x >=0 
-                    && y >= 0
-                    && x < ocean.len() as i32
-                    && y < ocean[0].len() as i32 {
-                if ocean[x as usize][y as usize] == true {
-                    adjacent_land.push(Point{x: x, y: y});
-                }
-            }
-        }
-    }
-    
-    return adjacent_land;
+    let ocean: &[&[bool]] = 
+                &[&[t,t,o,o,o,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,t,o,o,t,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,t,t,o,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,t,o,t,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,t,o,o,o,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,t,t,o,t,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,t,o,o,o,t,o,o,t,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,t,o,o,t,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,t,o,o,t,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o]];
+
+    iterate_a(&ocean, 3);
+    //iterate_b(&ocean, 3);
+    recurse(&ocean, 3);
 }
 
-fn find_islands (islands: &[Island], land: Point, adjacent_land: &[Point]) -> Vec<Island> {
-    let mut found_islands: Vec<Island> = Vec::new();
-    let mut land_added = false;
+fn test_4() {
+    let t = true;
+    let o = false;
+    let ocean: &[&[bool]] = 
+                &[&[t,t,o,o,o,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o,t,t,o,o,o,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,t,o,o,t,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o,o,t,o,o,t,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,t,t,o,o,o,o,t,o,o,o,o,o,o,t,o,o,o,o,o,o,t,t,o,o,o,o,t,o,o,o,o,o,o,t,o,o,o,o],
+                  &[o,o,t,t,o,o,o,o,t,o,o,o,o,o,o,t,o,o,o,o,o,o,t,t,o,o,o,o,t,o,o,o,o,o,o,t,o,o,o,o],
+                  &[o,o,t,t,o,o,o,o,t,o,o,o,o,o,o,t,o,o,o,o,o,o,t,t,o,o,o,o,t,o,o,o,o,o,o,t,o,o,o,o],
+                  &[o,o,t,t,o,o,o,o,t,o,o,o,o,o,o,t,o,o,o,o,o,o,t,t,o,o,o,o,t,o,o,o,o,o,o,t,o,o,o,o],
+                  &[o,o,t,t,o,o,o,o,t,o,o,o,o,o,o,t,o,o,o,o,o,o,t,t,o,o,o,o,t,o,o,o,o,o,o,t,o,o,o,o],
+                  &[o,o,o,o,o,o,t,o,t,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,t,o,t,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,t,o,o,o,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o,o,t,o,o,o,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,t,t,o,t,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o,o,t,t,o,t,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,t,o,o,o,t,o,o,t,o,o,o,t,o,o,o,o,o,o,o,o,t,o,o,o,t,o,o,t,o,o,o,t,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,t,o,o,t,o,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o,t,o,o,t,o,o,o,o,t,o,o,o,o,o,o],
+                  &[o,o,o,o,o,t,o,o,t,o,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o,t,o,o,t,o,o,o,o,t,o,o,o,o,o,o],
+                  &[o,o,o,o,o,t,o,o,t,o,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o,t,o,o,t,o,o,o,o,t,o,o,o,o,o,o],
+                  &[o,o,o,o,o,t,o,o,t,o,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o,t,o,o,t,o,o,o,o,t,o,o,o,o,o,o],
+                  &[o,o,o,o,o,t,o,o,t,o,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o,t,o,o,t,o,o,o,o,t,o,o,o,o,o,o],
+                  &[o,o,o,o,o,t,o,o,t,o,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o,t,o,o,t,o,o,o,o,t,o,o,o,o,o,o],
+                  &[o,o,o,o,o,t,o,o,t,o,o,o,t,t,o,o,o,o,o,o,o,o,o,o,o,t,o,o,t,o,o,o,t,t,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,t],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,t],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,t,o,t,o,o,o,o,o,t,t,t,t,t,o,o,o,o,o,o,t,o,o,t],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,t,o,t,o,o,o,o,o,t,t,t,t,t,o,o,o,o,o,o,t,o,o,t],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,t,o,t,o,o,o,o,o,t,t,t,t,t,o,o,o,o,o,o,t,o,o,t],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,t,o,t,o,o,o,o,o,t,t,t,t,t,o,o,o,o,o,o,t,o,o,t],
+                  &[o,t,o,o,t,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o,o,t,o,o,t,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o],
+                  &[o,o,o,o,o,t,t,t,t,t,o,o,o,o,o,o,t,o,o,t,o,o,o,o,o,t,t,t,t,t,o,o,o,o,o,o,t,o,o,t],
+                  &[o,o,o,o,o,t,t,t,t,t,o,o,o,o,o,t,t,t,o,t,o,o,o,o,o,t,t,t,t,t,o,o,o,o,o,t,t,t,o,t],
+                  &[o,o,o,o,o,t,t,t,t,t,o,o,o,o,o,t,t,t,o,t,o,o,o,o,o,t,t,t,t,t,o,o,o,o,o,t,t,t,o,t],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,t,t,t,t,o,t,o,o,o,o,o,o,o,o,o,o,o,o,o,o,t,t,t,t,o,t],
+                  &[t,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,t,o,o,o,t,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,t,o,o,t,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o,o,t,o,o,t,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o],
+                  &[o,t,o,o,t,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o,o,t,o,o,t,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o],
+                  &[o,t,o,o,t,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o,o,t,o,o,t,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o],
+                  &[o,t,o,o,t,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o,o,t,o,o,t,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o],
+                  &[o,t,o,o,t,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o,o,t,o,o,t,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o],
+                  &[o,t,o,o,t,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o,o,t,o,o,t,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o],
+                  &[o,t,o,o,t,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o,o,t,o,o,t,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o],
+                  &[o,t,t,t,t,o,o,o,o,o,o,t,o,t,o,o,o,o,o,o,o,t,t,t,t,o,o,o,o,o,o,t,o,t,o,o,o,o,o,o],
+                  &[t,o,o,o,o,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o,t,o,o,o,o,o,o,o,o,o,o,t,t,t,o,o,o,o,o,o]];
 
-    for island in islands.iter() {
-        for l in island.lands.iter() {
-            if adjacent_land.par_iter().any(|x| x.x == l.x && x.y == l.y) {
-                let mut new_island = island.clone();
-                if !land_added {
-                    new_island.lands.push(land);
-                    land_added = true;
-                }
-                
-                if !found_islands.par_iter().any(|x| x.id == new_island.id) {
-                    found_islands.push(new_island);
-                }
-            }
-        }
-    }
-
-    return found_islands;
+    iterate_a(&ocean, 2);
+    //iterate_b(&ocean, 2);
+    recurse(&ocean, 2);
 }
 
-fn merge_islands (islands: &[Island]) -> Island {
-    islands.clone().to_vec().sort_by(|a1, b1| a1.id.cmp(&b1.id));
-    
-    let mut new_lands: Vec<Point> = Vec::new();
+fn test_5() {
+    let o = false;
+    let ocean: &[&[bool]] = 
+                &[&[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o],
+                  &[o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o]];
 
-    for found in islands.iter() {
-        new_lands = [&new_lands[..], &found.lands[..]].concat();
-    }
-
-    return Island{ id: islands[0].id, lands: new_lands };
-} 
-
-fn remove_islands (islands: &[Island], islands_to_remove: &[Island]) -> Vec<Island> {
-    let mut new_islands = islands.to_vec();
-    for island in islands_to_remove.iter() {
-        let remove_index = find_index_by_island_id(&new_islands[..], island.id);
-        new_islands.remove(remove_index);
-    }
-    new_islands.clone().to_vec().sort_by(|a1, b1| a1.id.cmp(&b1.id));
-
-    return new_islands;
-} 
-
-fn find_index_by_island_id(islands: &[Island], id: usize) -> usize {
-    let index = match islands.iter().position(|x| x.id == id){
-        Some(n) => n,
-        None => panic!["Island {:?} not found in: {:?}", id, islands]
-    };
-
-    return index;
+    iterate_a(&ocean, 3);
+    //iterate_b(&ocean, 3);
+    recurse(&ocean, 3);
 }
 
-fn get_next_island_id(islands: &[Island]) -> usize {
-    let id = match islands.iter().max_by_key(|x| x.id ){
-        Some(i) => i.id+1,
-        None => 0
-    };
+fn test_6() {
+    let t = true;
+    let ocean: &[&[bool]] = 
+                &[&[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t],
+                  &[t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t]];
 
-    return id;
+    iterate_a(&ocean, 3);
+    //iterate_b(&ocean, 3);
+    recurse(&ocean, 3);
 }
-
-fn validate_ocean(ocean: &[&[bool]]) -> bool {
-    for row in ocean {
-        if row.len() != ocean.len() {
-            return false;
-        }
-    }
-    return true;
-}
-/*
-fn build_ocean(size: usize) -> &[&[bool]] {
-    let mut ocean: &[&[bool]] = &[&[]];
-
-    for i in 0..size {
-        let mut row: &[bool] = &[];
-        for j in 0..size {
-            let mut rng = rand::thread_rng();
-            row[j] = rng.gen();
-        }
-        ocean[i] = row;
-    }
-    return ocean.clone();
-}
-*/
